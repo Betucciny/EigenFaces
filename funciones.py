@@ -52,7 +52,7 @@ def eigenmatrix(datos, k):
 
 # Descomponer imagen en sus componentes principales
 def deconstruct(img,  k=200,  eigenmat=np.loadtxt('eigenmat.txt')):
-    eigenmat = eigenmat[0:k, :]
+    eigenmat = eigenmat[:k, :]
     vec, mean = veccent(img)
     dec = eigenmat @ vec
     return dec, mean
@@ -60,7 +60,7 @@ def deconstruct(img,  k=200,  eigenmat=np.loadtxt('eigenmat.txt')):
 
 # Reconstruir imagen a partir de sus componentes principales
 def reconstruct(prueba, mean, k=200, eigenmat=np.loadtxt('eigenmat.txt')):
-    eigenmat = eigenmat[0:k, :]
+    eigenmat = eigenmat[:k, :]
     normal = eigenmat.T @ prueba + mean
     return normal
 
