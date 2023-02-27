@@ -75,7 +75,3 @@ def veccent(img):
 # Guardar matriz en archivo
 def guardar_matriz(matriz, archivo):
     np.savetxt(archivo, matriz)
-
-
-
-
