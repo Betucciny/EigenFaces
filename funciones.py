@@ -17,17 +17,35 @@ def vectorimg(img):
 
 
 # Importing the dataset
-def faces():
+def faces_train():
     matrizcompleta = []
     for i in range(1, 41):
         folder = 's' + str(i)
         for j in range(1, 6):
-            filename = 'dataset/' + folder + '/' + str(j) + '.pgm'
+            filename = file_names(folder, j)
             img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
             img = np.array(cv2.resize(img, (64, 64)))
             vec = vectorimg(img)
             matrizcompleta.append(vec)
     return np.array(matrizcompleta)
+
+
+def faces_test():
+    matrizcompleta = []
+    for i in range(1, 41):
+        folder = 's' + str(i)
+        for j in range(6, 11):
+            filename = file_names(folder, j)
+            img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
+            img = np.array(cv2.resize(img, (64, 64)))
+            vec = vectorimg(img)
+            matrizcompleta.append(vec)
+    return np.array(matrizcompleta)
+
+
+def file_names(folder, j):
+    filename = 'dataset/' + folder + '/' + str(j) + '.pgm'
+    return filename
 
 
 # Calcular la matriz de eigenfaces
@@ -75,3 +93,12 @@ def veccent(img):
 # Guardar matriz en archivo
 def guardar_matriz(matriz, archivo):
     np.savetxt(archivo, matriz)
+
+
+def eigenfaces(eigen_mat, datos, k=200):
+    mean = np.mean(datos, axis=1, keepdims=True)
+    datos = datos - mean
+    eigen_faces = eigen_mat[:k, :] @ datos.T
+    return eigen_faces, mean
+
+

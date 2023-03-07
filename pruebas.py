@@ -2,14 +2,26 @@ from funciones import *
 
 
 def main():
-    img = np.array(cv2.resize((cv2.imread('dataset/s6/2.pgm', cv2.IMREAD_GRAYSCALE)), (64, 64)))
-    cv2.imwrite('original.png', img.reshape(64, 64))
+    k = 190
+    eigenmat = np.loadtxt('eigenmat.txt')
+    train_eigen = np.loadtxt('eigenfaces.txt')
 
-    k = 50
-    deconstruida, mean = deconstruct(img, k)
-    reconstruida = reconstruct(deconstruida, mean, k)
+    test_images = faces_test()
+    test_eigen, test_mean = eigenfaces(eigenmat, test_images, k)
 
-    cv2.imwrite('reconstruida.png', reconstruida.reshape(64, 64))
+    correctas = 0
+    for i in range(test_eigen.shape[1]):
+        test = test_eigen[:, i]
+        distancia = []
+        for j in range(train_eigen.shape[1]):
+            train = train_eigen[:, j]
+            distancia.append(np.linalg.norm(train - test))
+        index = np.argmin(distancia)
+        clase_ideal = i // 5 + 1
+        clase_test = index // 5 + 1
+        if clase_ideal == clase_test:
+            correctas += 1
+    print(correctas / test_eigen.shape[1] * 100)
 
 
 if __name__ == '__main__':
