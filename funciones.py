@@ -25,7 +25,8 @@ def faces_train():
         for j in range(1, 6):
             filename = file_names(folder, j)
             img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
-            img = np.array(cv2.resize(img, (64, 64)))
+            # img = np.array(cv2.resize(img, (64, 64)))
+            img = np.array(img)
             vec = vectorimg(img)
             matrizcompleta.append(vec)
     return np.array(matrizcompleta)
@@ -38,7 +39,8 @@ def faces_test():
         for j in range(6, 11):
             filename = file_names(folder, j)
             img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
-            img = np.array(cv2.resize(img, (64, 64)))
+            # img = np.array(cv2.resize(img, (64, 64)))
+            img = np.array(img)
             vec = vectorimg(img)
             matrizcompleta.append(vec)
     return np.array(matrizcompleta)
