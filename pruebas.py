@@ -21,7 +21,8 @@ def main():
         clase_test = index // 5 + 1
         if clase_ideal == clase_test:
             correctas += 1
-    print(correctas / test_eigen.shape[1] * 100)
+    porcentaje_correctas = correctas / test_eigen.shape[1] * 100
+    print(f'Porcentaje de aciertos: {porcentaje_correctas}%')
 
 
 if __name__ == '__main__':
