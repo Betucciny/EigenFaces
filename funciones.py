@@ -11,7 +11,8 @@ def covariance_matrix(x):
 # Vectorizar imagen
 def vectorimg(img):
     vec = []
-    for fila in img:
+    for i in range(img.shape[1]):
+        fila = img[:, i]
         vec += fila.tolist()
     return vec
 
