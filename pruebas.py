@@ -24,6 +24,21 @@ def main():
     porcentaje_correctas = correctas / test_eigen.shape[1] * 100
     print(f'Porcentaje de aciertos: {porcentaje_correctas}%')
 
+    num_imagen = 1
+    imagen_original = test_images[num_imagen, :]
+    imagen_original = imagen_original.reshape(92, 112)
+
+    imagen_reconstruida = test_eigen[:, num_imagen]
+    imagen_reconstruida = reconstruct(imagen_reconstruida, test_mean[num_imagen], k, eigenmat)
+    print(imagen_reconstruida.shape)
+
+    imagen_reconstruida = imagen_reconstruida.reshape(92, 112)
+
+    cv2.imwrite('original_test.png', imagen_original)
+    cv2.imwrite('reconstruida_test.png', imagen_reconstruida)
+
+
+
 
 if __name__ == '__main__':
     main()
